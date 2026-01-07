@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FTP Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <div class="max-w-7xl mx-auto p-6 space-y-6">
+
+        <h1 class="text-2xl font-bold">FTP Client Dashboard</h1>
+
+        <p class="text-sm">
+            </b> Direktori saat ini (PWD):
+            <span class="font-mono bg-white px-2 py-1 rounded">{{ pwd }}</span>
+        </p>
+
+        {% if message %}
+        <div class="bg-green-100 text-green-800 p-3 rounded">{{ message }}</div>
+        {% endif %}
+        {% if error %}
+        <div class="bg-red-100 text-red-800 p-3 rounded">{{ error }}</div>
+        {% endif %}
+
+
+        <!-- MENU 3 -->
+        <form method="post" class="flex gap-2">
+            <input name="folder" placeholder="Pindah direktori" class="border rounded px-3 py-2 w-full">
+            <button class="bg-blue-600 text-white px-4 rounded">Pindah</button>
+        </form>
+
+
+
+        <!-- MENU 6 -->
+        <form method="post" enctype="multipart/form-data" class="flex gap-2">
+            <input type="file" name="file" class="border rounded px-3 py-2 w-full">
+            <button class="bg-green-600 text-white px-4 rounded">
+                Upload
+            </button>
+        </form>
+
+        <!-- MENU 2,5 -->
+        <h2 class="font-semibold mt-4">Daftar Direktori & File Server</h2>
+
+        <div class="bg-white rounded p-4">
+            <ul class="space-y-2 font-mono text-sm">
+                {% for i in items %}
+                <li class="flex justify-between items-center">
+
+                    <!-- FOLDER -->
+                    {% if i.type == "dir" %}
+                    <a href="/cd/{{ i.name }}" class="text-blue-700 hover:underline flex items-center gap-2">
+                        📁 {{ i.name }}
+                    </a>
+                    {% else %}
+                    <!-- FILE -->
+                    <span class="flex items-center gap-2">
+                        📄 {{ i.name }}
+                    </span>
+
+                    <div class="space-x-3">
+                        <a href="/download/{{ i.name }}" class="text-blue-600">Download</a>
+                        <a href="/delete/{{ i.name }}" class="text-red-600">Delete</a>
+                    </div>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <!-- MENU 0 -->
+        <a href="/logout" class="mt-4 bg-red-600 text-white px-4 py-2 rounded">
+            Keluar
+        </a>
+
+    </div>
+</body>
+
+</html>

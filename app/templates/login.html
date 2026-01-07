@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-2xl font-bold mb-4 text-slate-800">Login FTP Server</h2>
+
+{% if error %}
+<div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+    {{ error }}
+</div>
+{% endif %}
+
+<form method="post" class="space-y-4">
+    <div>
+        <label class="block text-sm font-medium">Username FTP</label>
+        <input name="username" class="w-full border rounded px-3 py-2">
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium">Password FTP</label>
+        <input type="password" name="password" class="w-full border rounded px-3 py-2">
+    </div>
+
+    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Login
+    </button>
+</form>
+
+{% endblock %}
